@@ -14,4 +14,4 @@
 
 **Can you add/edit/improve something from the script for my server?:** Short answer is no.
 
-**I found a bug or I have some improvements for the script, what should I do?:** Open an/a issue/pullreq in Github or a comment in my Forum Post but don't open a Ticket in Discord, Discord is only for paid scripts.
+**I found a bug or I have some improvements for the script, what should I do?:** Open an issue or a pull request in Github or leave a comment in my Forum Post. Don't open a Ticket in Discord, Discord is only for paid scripts.
