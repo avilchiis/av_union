@@ -1,6 +1,6 @@
 allZones = {
     {
-        label = "[E] Use Elevator", -- Elevator 1st floor
+        label = Lang['use_elevator'], -- Elevator 1st floor
         key = 38, -- Used for interaction
         coords = {10.4317, -672.78, 33.4495}, -- Where the zone is located
         canInteract = function() -- Return true/false, used for some extra checks
@@ -13,7 +13,7 @@ allZones = {
         }
     },
     {
-        label = "[E] Use Elevator", -- Elevator basement
+        label = Lang['use_elevator'], -- Elevator basement
         key = 38,
         coords = {-0.0979, -705.8881, 16.1244},
         canInteract = function()
@@ -26,20 +26,18 @@ allZones = {
         }
     },
     {
-        label = "[E] Hack", -- Elevator basement
+        label = Lang['hack_vault'], -- Elevator basement
         key = 38,
         coords = {-3.7646, -686.8660, 16.1308},
         canInteract = function()
-            return (not isCop())
+            return (not isCop() and not heist['vaultOpen'])
         end,
         event = "av_union:hackVault",
         distance = 1,
-        args = {
-            
-        }
+        args = {}
     },
     {
-        label = "[E] Inspect", -- Tunnel C4
+        label = Lang['plant_c4'], -- Tunnel C4
         key = 38,
         coords = {6.5489, -658.8716, 16.1309},
         canInteract = function()
@@ -47,8 +45,50 @@ allZones = {
         end,
         event = "av_union:plantC4",
         distance = 1,
-        args = {
-            
-        }
+        args = {}
+    },
+    {
+        label = Lang['steal_money'], -- Trolley 1R
+        key = 38,
+        coords = {5.061, -680.50, 15.13},
+        canInteract = function()
+            return (not isCop() and isTrolley())
+        end,
+        event = "av_union:money",
+        distance = 1.5,
+        args = {}
+    },
+    {
+        label = Lang['steal_money'], -- Trolley 2R
+        key = 38,
+        coords = {6.32, -674.99, 15.13},
+        canInteract = function()
+            return (not isCop() and isTrolley())
+        end,
+        event = "av_union:money",
+        distance = 1.5,
+        args = {}
+    },
+    {
+        label = Lang['steal_money'], -- Trolley 1L
+        key = 38,
+        coords = {-6.13, -676.20, 15.13},
+        canInteract = function()
+            return (not isCop() and isTrolley())
+        end,
+        event = "av_union:money",
+        distance = 1.5,
+        args = {}
+    },
+    {
+        label = Lang['steal_money'], -- Trolley 2L
+        key = 38,
+        coords = {-3.97, -671.06, 15.13},
+        canInteract = function()
+            return (not isCop() and isTrolley())
+        end,
+        event = "av_union:money",
+        distance = 1.5,
+        args = {}
     },
 }

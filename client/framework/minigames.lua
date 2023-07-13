@@ -8,3 +8,14 @@ function hackMinigame() -- Used to hack vault
     while waiting do Wait(100) end
     return res
 end
+
+function ThermiteMinigame()
+    local waiting = true
+    local res = true
+    exports['ps-ui']:Thermite(function(success)
+        res = success
+        waiting = false
+    end, 10, 5, 3) -- Time, Gridsize (5, 6, 7, 8, 9, 10), IncorrectBlocks
+    while waiting do Wait(100) end
+    return res
+end

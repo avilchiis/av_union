@@ -25,10 +25,15 @@ RegisterServerEvent('av_union:openVault', function()
             heist['vaultOpen'] = true
             TriggerClientEvent('av_union:openVault',-1)
             syncPlayers()
+            startedTime = os.time() + Config.Cooldown * 60
         end
     else
         -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
     end
+end)
+
+RegisterServerEvent('av_union:thermiteFx', function(netId,coords)
+    TriggerClientEvent('av_union:thermiteFx',-1,netId,coords)
 end)
 
 function syncPlayers()
@@ -37,7 +42,7 @@ end
 
 AddEventHandler('playerJoining', function(source)
 	if source then
-		TriggerClientEvent('av_union:sync',source,heist)
+		TriggerClientEvent('av_union:sync',source,heist,doors)
 	end
 end)
 
@@ -46,5 +51,24 @@ AddEventHandler('onResourceStart', function(resourceName)
     return
   end
   Wait(500)
-  TriggerClientEvent('av_union:sync',-1,heist)
+  TriggerClientEvent('av_union:sync',-1,heist,doors)
 end)
+
+function WipeHeist()
+    for k, v in pairs(trolleys) do
+        while DoesEntityExist(v) do
+            DeleteEntity(v)
+            Wait(5)
+        end
+    end
+    trolleys = {}
+    for k, v in pairs(heist) do
+        heist[k] = false
+    end
+    for k, v in pairs(doors) do
+        v['locked'] = true
+    end
+    Wait(250) -- I don't know, just in case
+    TriggerClientEvent('av_union:sync',-1,heist,doors)
+    print("^2AV Union Heist got restarted.^7")
+end

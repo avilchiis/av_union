@@ -1,14 +1,18 @@
 local busy = false
+
 RegisterNetEvent('av_union:plantC4', function()
     if busy then return end
+    if not enoughCops() then
+        TriggerEvent('av_union:notification',Lang['not_enough_cops'],'error')
+        return
+    end
     if hasItem(Config.NeededItems['c4'], 1) then
         busy = true
         lib.hideTextUI()
         removeItem(Config.NeededItems['c4'], 1)
         lib.requestAnimDict('anim@heists@ornate_bank@thermal_charge')
+        lib.requestModel('hei_p_m_bag_var22_arm_s')
         local playerPed = PlayerPedId()
-        local fwd, _, _, pos = GetEntityMatrix(playerPed)
-        local newPos = (fwd * 0.6) + pos            
         SetEntityCoords(playerPed, 6.40, -658.52, 15.20)
         SetEntityHeading(playerPed, 344.31)
         FreezeEntityPosition(playerPed, true)
@@ -20,12 +24,12 @@ RegisterNetEvent('av_union:plantC4', function()
         NetworkAddPedToSynchronisedScene(playerPed, scene, "anim@heists@ornate_bank@thermal_charge", "thermal_charge", 1.5, -4.0, 1, 16, 1148846080, 0)
         NetworkAddEntityToSynchronisedScene(bag, scene, "anim@heists@ornate_bank@thermal_charge", "bag_thermal_charge", 4.0, -8.0, 1)
         NetworkStartSynchronisedScene(scene)
-        Citizen.Wait(1500)
+        Wait(1500)
         pos = GetEntityCoords(playerPed)
         c4 = CreateObject(`ch_prop_ch_explosive_01a`, pos.x, pos.y, pos.z + 0.2, 1, 1, 1)
         SetEntityCollision(c4, 0, 1)
         AttachEntityToEntity(c4, playerPed, GetPedBoneIndex(playerPed, 28422), 0, 0, 0, 0, 0, 180.0, 1, 1, 0, 1, 1, 1)
-        Citizen.Wait(4000)
+        Wait(4000)
         DeleteEntity(bag)
         SetPedComponentVariation(playerPed, 5, 45, 0, 0)
         DetachEntity(c4, 1, 1)
@@ -62,10 +66,10 @@ RegisterNetEvent('av_union:c4explosion', function()
         local handle2 = GetRayfireMapObject(7.25, -656.98, 17.14, 50.0, "des_finale_vault")
         SetStateOfRayfireMapObject(handle, 4)
         SetStateOfRayfireMapObject(handle2, 4)
-        Citizen.Wait(100)
+        Wait(100)
 		RequestNamedPtfxAsset('scr_josh3')
 		while not HasNamedPtfxAssetLoaded('scr_josh3') do
-			Citizen.Wait(1)
+			Wait(1)
 		end	
 		UseParticleFxAssetNextCall('scr_josh3')
         AddExplosionWithUserVfx(6.60, -658.55, 15.38, 26, `EXP_VFXTAG_TRN4_DYNAMITE`, 100000.0, true, false, 1)
@@ -74,12 +78,12 @@ RegisterNetEvent('av_union:c4explosion', function()
 		SetStateOfRayfireMapObject(handle, 6) 
 		SetStateOfRayfireMapObject(handle2, 6)
 		Citizen.CreateThread(function()
-			Citizen.Wait(10)
+			Wait(10)
 			while GetRayfireMapObjectAnimPhase(handle) > 0.0 do
-				Citizen.Wait(0)
+				Wait(0)
 			end
 			while GetRayfireMapObjectAnimPhase(handle2) > 0.0 do
-				Citizen.Wait(0)
+				Wait(0)
 			end
 		end)
 	end

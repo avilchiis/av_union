@@ -19,3 +19,9 @@ client_scripts {
 server_scripts {
 'server/**/*'
 }
+
+dependencies {
+ 'ox_lib',
+ 'ps-ui',
+ '/gameBuild:2060',
+}

@@ -1,6 +1,7 @@
 CreateThread(function()
     local alreadyClose = false
     while not loaded do Wait(1000) end
+    while IsScreenFadedOut() do Wait(1000) end
     while true do
         local close = false
         if #(GetEntityCoords(PlayerPedId()) - vector3(0.3161, -677.2463, 16.1308)) <= 80 then
@@ -15,20 +16,20 @@ CreateThread(function()
             end
             if heist['tunnelOpen'] and not alreadyClose then
                 local handle = GetRayfireMapObject(7.25, -656.98, 17.14, 50.0, "des_finale_tunnel")
-	            local handle2 = GetRayfireMapObject(7.25, -656.98, 17.14, 50.0, "des_finale_vault")
+                local handle2 = GetRayfireMapObject(7.25, -656.98, 17.14, 50.0, "des_finale_vault")
                 if (GetStateOfRayfireMapObject(handle) == 3 or GetStateOfRayfireMapObject(handle2) == 3) then
                     SetStateOfRayfireMapObject(handle, 4)
-	                SetStateOfRayfireMapObject(handle2, 4)
-                    Citizen.Wait(100)
-                    SetStateOfRayfireMapObject(handle, 9) 
-		            SetStateOfRayfireMapObject(handle2, 9)
+                    SetStateOfRayfireMapObject(handle2, 4)
+                    Wait(100)
+                    SetStateOfRayfireMapObject(handle, 9)
+                    SetStateOfRayfireMapObject(handle2, 9)
                     Citizen.CreateThread(function()
-                        Citizen.Wait(10)
+                        Wait(10)
                         while GetRayfireMapObjectAnimPhase(handle) > 0.0 do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
                         while GetRayfireMapObjectAnimPhase(handle2) > 0.0 do
-                            Citizen.Wait(0)
+                            Wait(0)
                         end
                     end)
                 end
