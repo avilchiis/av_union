@@ -24,7 +24,7 @@ RegisterServerEvent('av_union:spawnTrolleys', function()
         Entity(temp_object).state.available = true
         trolleys[#trolleys+1] = temp_object
     else
-        -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
+        banPlayer(src, 'av_union:spawnTrolleys')
     end
 end)
 
@@ -53,6 +53,6 @@ RegisterServerEvent('av_union:deleteTrolley', function(netId)
             end
         end
     else
-        -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
+        banPlayer(src, 'av_union:deleteTrolley')
     end
 end)

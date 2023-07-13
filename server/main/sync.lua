@@ -13,7 +13,7 @@ RegisterServerEvent('av_union:triggerC4', function()
             syncPlayers()
         end
     else
-        -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
+        banPlayer(src, 'av_union:triggerC4')
     end
 end)
 
@@ -28,7 +28,7 @@ RegisterServerEvent('av_union:openVault', function()
             startedTime = os.time() + Config.Cooldown * 60
         end
     else
-        -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
+        banPlayer(src, 'av_union:openVault')
     end
 end)
 
