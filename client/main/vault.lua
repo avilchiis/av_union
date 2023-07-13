@@ -23,7 +23,7 @@ RegisterNetEvent('av_union:hackVault', function()
                 TriggerServerEvent('av_union:spawnTrolleys')
             end
             busy = false
-            inAnimation = true
+            inAnimation = false
         end
     else
         TriggerEvent('av_union:notification',Lang['no_item'],'error')
