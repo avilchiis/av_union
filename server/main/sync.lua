@@ -6,21 +6,23 @@ heist = {
 RegisterServerEvent('av_union:triggerC4', function()
     local src = source
     local player = GetPlayerPed(src)
-    if #(GetEntityCoords(player) - vector3(6.4984, -659.1194, 16.1308)) <= 50 then
+    local distance = #(GetEntityCoords(player) - vector3(6.4984, -659.1194, 16.1308))
+    if distance <= 50 then
         if not heist['tunnelOpen'] then
             heist['tunnelOpen'] = true
             TriggerClientEvent('av_union:c4explosion',-1)
             syncPlayers()
         end
     else
-        banPlayer(src, 'av_union:triggerC4')
+        banPlayer(src, 'av_union:triggerC4', distance)
     end
 end)
 
 RegisterServerEvent('av_union:openVault', function()
     local src = source
     local player = GetPlayerPed(src)
-    if #(GetEntityCoords(player) - vector3(-3.5310, -685.3057, 16.1309)) <= 20 then
+    local distance = #(GetEntityCoords(player) - vector3(-3.5310, -685.3057, 16.1309))
+    if distance <= 20 then
         if not heist['vaultOpen'] then
             heist['vaultOpen'] = true
             TriggerClientEvent('av_union:openVault',-1)
@@ -28,7 +30,7 @@ RegisterServerEvent('av_union:openVault', function()
             startedTime = os.time() + Config.Cooldown * 60
         end
     else
-        banPlayer(src, 'av_union:openVault')
+        banPlayer(src, 'av_union:openVault', distance)
     end
 end)
 

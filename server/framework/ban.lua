@@ -1,5 +1,6 @@
-function banPlayer(source,event)
+function banPlayer(source,event,distance)
     -- Add your custom ban event/export here...
-    print('Player '..GetPlayerName(source)..' was caught cheating(?), triggered event: '..event)
+    -- Distance can help you to detect if it was a false positive, anyways doesn't mean player can't get close to location and use mod menu so be careful...
+    print('Player '..GetPlayerName(source)..' was caught cheating(?), triggered event: '..event..' at a distance of: '..distance..' mts.')
     DropPlayer(source, "Ouch you got caught :(")
 end
