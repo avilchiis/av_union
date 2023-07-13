@@ -30,24 +30,29 @@ end)
 
 RegisterServerEvent('av_union:deleteTrolley', function(netId)
     local src = source
-    for k, v in pairs(trolleys) do
-        local temp_id = NetworkGetNetworkIdFromEntity(v)
-        if temp_id and temp_id ~= 0 then
-            if temp_id == netId then
-                if DoesEntityExist(v) then
-                    local newCoords = GetEntityCoords(v) + vector3(0.0, 0.0, - 0.49)
-                    local newRotation = GetEntityRotation(v)
-                    while DoesEntityExist(v) do
-                        DeleteEntity(v)
-                        Wait(5)
+    local player = GetPlayerPed(src)
+    if #(GetEntityCoords(player) - vector3(-0.2695, -675.1189, 16.1308)) <= 50 and heist['vaultOpen'] then
+        for k, v in pairs(trolleys) do
+            local temp_id = NetworkGetNetworkIdFromEntity(v)
+            if temp_id and temp_id ~= 0 then
+                if temp_id == netId then
+                    if DoesEntityExist(v) then
+                        local newCoords = GetEntityCoords(v) + vector3(0.0, 0.0, - 0.49)
+                        local newRotation = GetEntityRotation(v)
+                        while DoesEntityExist(v) do
+                            DeleteEntity(v)
+                            Wait(5)
+                        end
+                        trolleys[k] = CreateObject(`hei_prop_hei_cash_trolly_03`, newCoords, true, false, false)
+                        SetEntityRotation(NewTrolley, newRotation)
+                        local reward = math.random(Config.Reward['min'], Config.Reward['max'])
+                        addMoney(src, Config.MoneyAccount, reward)
+                        TriggerClientEvent('av_union:notification',src,Lang['you_received']..reward,'success')
                     end
-                    trolleys[k] = CreateObject(`hei_prop_hei_cash_trolly_03`, newCoords, true, false, false)
-                    SetEntityRotation(NewTrolley, newRotation)
-                    local reward = math.random(Config.Reward['min'], Config.Reward['max'])
-                    addMoney(src, Config.MoneyAccount, reward)
-                    TriggerClientEvent('av_union:notification',src,Lang['you_received']..reward,'success')
                 end
             end
         end
+    else
+        -- Trigger your ban event here cause this guy triggered this using a mod menu (?)
     end
 end)
