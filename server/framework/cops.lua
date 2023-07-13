@@ -1,5 +1,5 @@
 CreateThread(function()
-    while Config.Framework == "ESX" then
+    while Config.Framework == "ESX" do
         local currentCops = 0
         for k, v in pairs(Config.PoliceJob) do
             local xPlayers = ESX.GetExtendedPlayers("job", k)
